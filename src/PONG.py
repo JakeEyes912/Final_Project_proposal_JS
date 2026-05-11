@@ -57,8 +57,8 @@ def handle_paddle_movement(keys, left_paddle):
         left_paddle.move(up=False)
 
 
-def handle_ai_movement(ball, right_paddle):
-     if ball.y > right_paddle.y + right_paddle.height / 2:
+def handle_ai_movement(right_paddle, ball): # Paddle first, Ball second
+    if ball.y > right_paddle.y + right_paddle.height / 2:
         if right_paddle.y + right_paddle.VEL + right_paddle.height <= HEIGHT:
             right_paddle.move(up=False)
     
