@@ -150,6 +150,10 @@ def main():
 
         keys = pygame.key.get_pressed()
         handle_paddle_movement(keys, left_paddle) # Only handles player (Left)
+        if keys[pygame.K_w] and left_paddle.y - left_paddle.VEL >= 0:
+                left_paddle.move(up=True)
+        if keys[pygame.K_s] and left_paddle.y + left_paddle.VEL + left_paddle.height <= HEIGHT:
+                left_paddle.move(up=False)
         handle_ai_movement(right_paddle, ball)    # Automatically handles AI (Right)
 
         ball.move()
