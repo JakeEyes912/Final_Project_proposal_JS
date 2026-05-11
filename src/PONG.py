@@ -58,13 +58,17 @@ def handle_paddle_movement(keys, left_paddle):
 
 
 def handle_ai_movement(right_paddle, ball): # Paddle first, Ball second
-    if ball.y > right_paddle.y + right_paddle.height / 2:
+    paddle_center = right_paddle.y + right_paddle.height / 2
+
+    if ball.y > paddle_center:
+        # Check if it hits the floor before moving
         if right_paddle.y + right_paddle.VEL + right_paddle.height <= HEIGHT:
             right_paddle.move(up=False)
-    
-    # If the ball is above the center of the paddle, move up
-        elif ball.y < right_paddle.y + right_paddle.height / 2:
-         if right_paddle.y - right_paddle.VEL >= 0:
+            
+    # AI moves UP
+    elif ball.y < paddle_center: # <-- Make sure this is an 'elif'
+        # Check if it hits the ceiling before moving
+        if right_paddle.y - right_paddle.VEL >= 0:
             right_paddle.move(up=True)
 
 class Ball:
@@ -100,6 +104,7 @@ def handle_collision(ball, left_paddle, right_paddle):
         if ball.y >= left_paddle.y and ball.y <= left_paddle.y + left_paddle.height:
             if ball.x - ball.radius <= left_paddle.x + left_paddle.width:
                 ball.x_vel *= -1
+                ball.x_vel *= 1.1
 
                 middle_y = left_paddle.y + left_paddle.height / 2
                 difference_in_y = middle_y - ball.y
