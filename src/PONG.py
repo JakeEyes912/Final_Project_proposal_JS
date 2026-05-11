@@ -49,11 +49,13 @@ def draw(win, paddles, ball, right_score, left_score):
     ball.draw(win)
     pygame.display.update()
 
-def handle_paddle_movement(keys, left_paddle, right_paddle, ball):
+# Make sure this line only has TWO arguments in the parentheses:
+def handle_paddle_movement(keys, left_paddle): 
     if keys[pygame.K_w] and left_paddle.y - left_paddle.VEL >= 0:
         left_paddle.move(up=True)
     if keys[pygame.K_s] and left_paddle.y + left_paddle.VEL + left_paddle.height <= HEIGHT:
         left_paddle.move(up=False)
+
 
 def handle_ai_movement(ball, right_paddle):
      if ball.y > right_paddle.y + right_paddle.height / 2:
@@ -150,10 +152,6 @@ def main():
 
         keys = pygame.key.get_pressed()
         handle_paddle_movement(keys, left_paddle) # Only handles player (Left)
-        if keys[pygame.K_w] and left_paddle.y - left_paddle.VEL >= 0:
-                left_paddle.move(up=True)
-        if keys[pygame.K_s] and left_paddle.y + left_paddle.VEL + left_paddle.height <= HEIGHT:
-                left_paddle.move(up=False)
         handle_ai_movement(right_paddle, ball)    # Automatically handles AI (Right)
 
         ball.move()
